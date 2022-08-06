@@ -2,6 +2,11 @@
 
 ### An tiny Dependency Injection framework for Swift on iOS.
 
+# Install use cocoapods
+```
+pod 'MPInjector'
+```
+
 # Register intance
 
 use singleton life time
@@ -23,7 +28,7 @@ MPInjector.registerFactory { GETEventUseCase() }
 
 ```swift
 @Inject var connectivityService: ConnectivityService
- @LazyInject var log: Logger
+@LazyInject var log: Logger
 ```
 
 # Sample App
