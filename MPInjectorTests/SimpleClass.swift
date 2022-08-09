@@ -23,13 +23,23 @@ protocol API {
     func call()
 }
 
-protocol Fly {
-    
-}
-
 class APIImp: API {
     
     @LazyInject var persion: Persion
     
     func call() {}
+}
+
+protocol Fly {
+    func flyable()
+}
+
+class Bird: Fly {
+    func flyable() {}
+}
+
+extension MPInjector: Registering {
+    public func registerService() {
+        registerSingleton { Bird() as Fly }
+    }
 }

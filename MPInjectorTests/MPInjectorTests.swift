@@ -10,15 +10,31 @@ import XCTest
 
 class MPInjectorTests: XCTestCase {
 
+    func testAutoRegister() {
+        XCTContext.runActivity(named: "test auto register") { _ in
+            let ex = expectation(description: "")
+            let instance1: Fly = MPInjector.resolve()
+            instance1.flyable()
+            
+            let instance2: Fly = MPInjector.resolve()
+            instance2.flyable()
+            
+            XCTAssert(instance1 as AnyObject === instance2 as AnyObject)
+            ex.fulfill()
+            MPInjector.removeAll()
+            wait(for: [ex], timeout: 1.0)
+        }
+    }
+    
     func testRegisterSuccess() {
         XCTContext.runActivity(named: "test register instance") { _ in
             let ex = expectation(description: "")
             do {
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     Dev() as Persion
                 }, lifeTime: .singleton))
                 
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     APIImp() as API
                 }, lifeTime: .factory))
                 
@@ -35,11 +51,11 @@ class MPInjectorTests: XCTestCase {
         XCTContext.runActivity(named: "test register instance error componentIsRegistered") { _ in
             let ex = expectation(description: "")
             do {
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     Dev() as Persion
                 }, lifeTime: .singleton))
                 
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     Dev() as Persion
                 }, lifeTime: .singleton))
             } catch let error {
@@ -60,7 +76,7 @@ class MPInjectorTests: XCTestCase {
         XCTContext.runActivity(named: "test register instance error canNotFindComponent") { _ in
             let ex = expectation(description: "")
             do {
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     Dev() as Persion
                 }, lifeTime: .singleton))
                 
@@ -84,11 +100,11 @@ class MPInjectorTests: XCTestCase {
         XCTContext.runActivity(named: "test can resolve intance lifetime factory") { _ in
             let ex = expectation(description: "")
             do {
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     Dev() as Persion
                 }, lifeTime: .factory))
                 
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     APIImp() as API
                 }, lifeTime: .factory))
                 
@@ -110,11 +126,11 @@ class MPInjectorTests: XCTestCase {
         XCTContext.runActivity(named: "test can resolve intance lifetime singleton") { _ in
             let ex = expectation(description: "")
             do {
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     Dev() as Persion
                 }, lifeTime: .singleton))
                 
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     APIImp() as API
                 }, lifeTime: .singleton))
                 
@@ -136,11 +152,11 @@ class MPInjectorTests: XCTestCase {
         XCTContext.runActivity(named: "test intance factory is diff") { _ in
             let ex = expectation(description: "")
             do {
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     Dev() as Persion
                 }, lifeTime: .factory))
                 
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     APIImp() as API
                 }, lifeTime: .factory))
                 
@@ -164,11 +180,11 @@ class MPInjectorTests: XCTestCase {
         XCTContext.runActivity(named: "test intance singleton is same") { _ in
             let ex = expectation(description: "")
             do {
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     Dev() as Persion
                 }, lifeTime: .singleton))
                 
-                try MPInjector.registerThrowable(.init({
+                try MPInjector.shared.registerThrowable(.init({
                     APIImp() as API
                 }, lifeTime: .singleton))
                 
@@ -190,10 +206,10 @@ class MPInjectorTests: XCTestCase {
     func testResolveLifeTime1_4() {
         XCTContext.runActivity(named: "test intance singleton is same 2") { _ in
             let ex = expectation(description: "")
-            MPInjector.registerSingleton {
+            MPInjector.shared.registerSingleton {
                 Dev() as Persion
             }
-            MPInjector.registerSingleton {
+            MPInjector.shared.registerSingleton {
                 APIImp() as API
             }
             let instance: Persion = MPInjector.resolve()
@@ -212,10 +228,10 @@ class MPInjectorTests: XCTestCase {
     func testResolveLifeTime1_5() {
         XCTContext.runActivity(named: "test intance factory is diff") { _ in
             let ex = expectation(description: "")
-            MPInjector.registerFactory {
+            MPInjector.shared.registerFactory {
                 Dev() as Persion
             }
-            MPInjector.registerFactory {
+            MPInjector.shared.registerFactory {
                 APIImp() as API
             }
             let instance: Persion = MPInjector.resolve()
@@ -230,5 +246,4 @@ class MPInjectorTests: XCTestCase {
             wait(for: [ex], timeout: 1.0)
         }
     }
-
 }
