@@ -14,31 +14,50 @@ public protocol Registering {
 public class MPInjector {
 
     // instance singleton
-    static let shared = MPInjector()
-    
+    public static let shared = MPInjector()
+
     // variables
     private var registrations = [Int: ComponentProtocol]()
     private var instances = [Int: Any]()
     private var isInited = false
-    
+
     // lock
     private let lock = NSRecursiveLock()
-    
+
+    // MARK: - PUBLIC METHOD
+
+    /// function remove all registrations and instances
+    public static func removeAll() {
+        shared.registrations.removeAll()
+        shared.instances.removeAll()
+    }
+
+    /// register service singleton
+    public func registerSingleton<Service>(_ componentFactory: @escaping () -> Service) {
+        try! registerThrowable(.init(componentFactory, lifeTime: .singleton))
+    }
+
+    /// register service factory
+    public func registerFactory<Service>(_ componentFactory: @escaping () -> Service) {
+        try! registerThrowable(.init(componentFactory, lifeTime: .factory))
+    }
+
+    /// resole instance
+    public static func resolve<Service>() -> Service {
+        return try! resolveThrowable()
+    }
+
+    // MARK: - PRIVATE METHOD
+
     private func checkInit() {
         if !isInited, let self = self as? Registering {
             self.registerService()
             isInited = true
         }
     }
-    
-    /// function remove all registrations and instances
-    public static func removeAll() {
-        shared.registrations.removeAll()
-        shared.instances.removeAll()
-    }
-    
+
     /// register service can throws
-    public func registerThrowable<Service>(_ component: Component<Service>) throws {
+    private func registerThrowable<Service>(_ component: Component<Service>) throws {
         defer { lock.unlock() }
         lock.lock()
         if registrations[component.identifier] != nil {
@@ -46,19 +65,9 @@ public class MPInjector {
         }
         registrations[component.identifier] = component
     }
-        
-    /// register service singleton
-    public func registerSingleton<Service>(_ componentFactory: @escaping () -> Service) {
-        try! registerThrowable(.init(componentFactory, lifeTime: .singleton))
-    }
-    
-    /// register service factory
-    public func registerFactory<Service>(_ componentFactory: @escaping () -> Service) {
-        try! registerThrowable(.init(componentFactory, lifeTime: .factory))
-    }
-    
+
     /// resolve instance can throws
-    public static func resolveThrowable<Service>() throws -> Service {
+    private static func resolveThrowable<Service>() throws -> Service {
         defer { shared.lock.unlock() }
         shared.lock.lock()
 
@@ -84,10 +93,5 @@ public class MPInjector {
             }
         }
         throw Errors.canNotResolveInstance
-    }
-    
-    /// resole instance
-    public static func resolve<Service>() -> Service {
-        return try! resolveThrowable()
     }
 }

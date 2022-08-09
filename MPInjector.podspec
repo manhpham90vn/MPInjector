@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MPInjector'
-  s.version          = '1.0.2'
+  s.version          = '1.0.3'
   s.summary          = 'An tiny Dependency Injection framework for Swift on iOS.'
   s.homepage         = 'https://github.com/manhpham90vn/MPInjector'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
