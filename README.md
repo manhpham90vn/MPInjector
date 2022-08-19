@@ -12,16 +12,24 @@ pod 'MPInjector'
 use singleton life time
 
 ```swift
-MPInjector.registerSingleton { UserDefaults.standard as UserDefaults }
-MPInjector.registerSingleton { UserDefaultsStorage() as Storage }
+extension MPInjector: Registering {
+    public func registerService() {
+        MPInjector.registerSingleton { UserDefaults.standard as UserDefaults }
+        MPInjector.registerSingleton { UserDefaultsStorage() as Storage }
+    }
+}
 ```
 
 use factory life time
 
-
 ```swift
-MPInjector.registerFactory { LoginUseCase() }
-MPInjector.registerFactory { GETEventUseCase() }
+extension MPInjector: Registering {
+    public func registerService() {
+        MPInjector.registerFactory { LoginUseCase() }
+        MPInjector.registerFactory { GETEventUseCase() }
+    }
+}
+
 ```
 
 # Resolve intance
