@@ -9,27 +9,18 @@ pod 'MPInjector'
 
 # Register intance
 
-use singleton life time
-
 ```swift
 extension MPInjector: Registering {
     public func registerService() {
+        // use singleton life time
         MPInjector.registerSingleton { UserDefaults.standard as UserDefaults }
         MPInjector.registerSingleton { UserDefaultsStorage() as Storage }
-    }
-}
-```
-
-use factory life time
-
-```swift
-extension MPInjector: Registering {
-    public func registerService() {
+        
+        // use factory life time
         MPInjector.registerFactory { LoginUseCase() }
         MPInjector.registerFactory { GETEventUseCase() }
     }
 }
-
 ```
 
 # Resolve intance
