@@ -13,12 +13,12 @@ pod 'MPInjector'
 extension MPInjector: Registering {
     public func registerService() {
         // use singleton life time
-        MPInjector.registerSingleton { UserDefaults.standard as UserDefaults }
-        MPInjector.registerSingleton { UserDefaultsStorage() as Storage }
+        registerSingleton { UserDefaults.standard as UserDefaults }
+        registerSingleton { UserDefaultsStorage() as Storage }
         
         // use factory life time
-        MPInjector.registerFactory { LoginUseCase() }
-        MPInjector.registerFactory { GETEventUseCase() }
+        registerFactory { LoginUseCase() }
+        registerFactory { GETEventUseCase() }
     }
 }
 ```
