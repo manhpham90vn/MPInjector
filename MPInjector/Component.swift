@@ -11,6 +11,7 @@ public class Component<Service>: ComponentProtocol {
     public let lifeTime: Lifetime
     public let identifier: Int
     public let componentFactory: ComponentFactory
+    public var componentFactoryMock: ComponentFactory?
 
     public init(_ factory: @escaping () -> Service, lifeTime: Lifetime) {
         self.lifeTime = lifeTime
