@@ -9,7 +9,7 @@ import Foundation
 
 @propertyWrapper
 public struct Inject<Component> {
-    public let wrappedValue: Component
+    public var wrappedValue: Component
 
     public init() {
         self.wrappedValue = MPInjector.resolve()

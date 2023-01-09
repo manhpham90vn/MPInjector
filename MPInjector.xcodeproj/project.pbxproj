@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BB3598DA293E379900FE9972 /* AppMockInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3598D9293E379900FE9972 /* AppMockInjector.swift */; };
 		BB4A361A293DFC1200620796 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A3619293DFC1200620796 /* AppDelegate.swift */; };
 		BB4A361C293DFC1200620796 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A361B293DFC1200620796 /* SceneDelegate.swift */; };
 		BB4A361E293DFC1200620796 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A361D293DFC1200620796 /* ViewController.swift */; };
@@ -21,7 +20,6 @@
 		BB4A3649293DFC3400620796 /* MPInjector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BBFBDF45289C2B3F00C66B46 /* MPInjector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BB4A364E293DFC6100620796 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A364D293DFC6100620796 /* API.swift */; };
 		BB4A3650293DFCC400620796 /* Local.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A364F293DFCC400620796 /* Local.swift */; };
-		BB4A3652293DFCD500620796 /* APIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A3651293DFCD500620796 /* APIMock.swift */; };
 		BB4A3654293DFD1D00620796 /* AppInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A3653293DFD1D00620796 /* AppInjector.swift */; };
 		BB4A3656293DFE1B00620796 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A3655293DFE1B00620796 /* ViewModel.swift */; };
 		BBFBDF50289C2B4000C66B46 /* MPInjector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFBDF45289C2B3F00C66B46 /* MPInjector.framework */; };
@@ -82,7 +80,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BB3598D9293E379900FE9972 /* AppMockInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMockInjector.swift; sourceTree = "<group>"; };
 		BB4A3617293DFC1200620796 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB4A3619293DFC1200620796 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB4A361B293DFC1200620796 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,7 +95,6 @@
 		BB4A363C293DFC1400620796 /* ExampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BB4A364D293DFC6100620796 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		BB4A364F293DFCC400620796 /* Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Local.swift; sourceTree = "<group>"; };
-		BB4A3651293DFCD500620796 /* APIMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMock.swift; sourceTree = "<group>"; };
 		BB4A3653293DFD1D00620796 /* AppInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInjector.swift; sourceTree = "<group>"; };
 		BB4A3655293DFE1B00620796 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		BBFBDF45289C2B3F00C66B46 /* MPInjector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MPInjector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,8 +173,6 @@
 			isa = PBXGroup;
 			children = (
 				BB4A3630293DFC1400620796 /* ExampleTests.swift */,
-				BB4A3651293DFCD500620796 /* APIMock.swift */,
-				BB3598D9293E379900FE9972 /* AppMockInjector.swift */,
 			);
 			path = ExampleTests;
 			sourceTree = "<group>";
@@ -463,9 +457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB4A3652293DFCD500620796 /* APIMock.swift in Sources */,
 				BB4A3631293DFC1400620796 /* ExampleTests.swift in Sources */,
-				BB3598DA293E379900FE9972 /* AppMockInjector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

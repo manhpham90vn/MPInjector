@@ -11,10 +11,6 @@ public protocol Registering {
     func registerService()
 }
 
-public protocol RegisteringMock {
-    func registerServiceMock()
-}
-
 public class MPInjector {
 
     // instance singleton
@@ -24,9 +20,6 @@ public class MPInjector {
     private var registrations = [Int: ComponentProtocol]()
     private var instances = [Int: Any]()
     private var isInited = false
-    private var isUnitTest: Bool {
-        NSClassFromString("XCTest") != nil
-    }
 
     // lock
     private let lock = NSRecursiveLock()
@@ -49,15 +42,6 @@ public class MPInjector {
         try! registerThrowable(.init(componentFactory, lifeTime: .factory))
     }
 
-    /// register service mock
-    public func registerMock<Service>(_ componentFactory: @escaping () -> Service) {
-        defer { lock.unlock() }
-        lock.lock()
-        
-        let identifier = Int(bitPattern: ObjectIdentifier(Service.self))
-        registrations[identifier]?.componentFactoryMock = componentFactory
-    }
-
     /// resolve instance
     public static func resolve<Service>() -> Service {
         return try! resolveThrowable()
@@ -69,9 +53,6 @@ public class MPInjector {
         if !isInited {
             if let self = self as? Registering {
                 self.registerService()
-            }
-            if let self = self as? RegisteringMock {
-                self.registerServiceMock()
             }
             isInited = true
         }
@@ -99,12 +80,6 @@ public class MPInjector {
         let identifier = Int(bitPattern: ObjectIdentifier(Service.self))
         guard let component = shared.registrations[identifier] else {
             throw Errors.canNotFindComponent
-        }
-
-        // alway provide score factory for mock
-        if let instance = component.componentFactoryMock?() as? Service,
-           shared.isUnitTest {
-            return instance
         }
 
         switch component.lifeTime {

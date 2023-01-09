@@ -13,5 +13,4 @@ public protocol ComponentProtocol {
     var lifeTime: Lifetime { get }
     var identifier: Int { get }
     var componentFactory: ComponentFactory { get }
-    var componentFactoryMock: ComponentFactory? { get set }
 }

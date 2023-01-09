@@ -18,7 +18,7 @@ final class ExampleTests: XCTestCase {
     }
     
     func testExample() {
-        XCTAssertEqual(viewModel.request(), 2)
+        XCTAssertEqual(viewModel.request(), 1)
     }
     
 }
