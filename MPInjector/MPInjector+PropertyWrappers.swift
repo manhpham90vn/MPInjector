@@ -18,10 +18,21 @@ public struct Inject<Component> {
 
 @propertyWrapper
 public struct LazyInject<Component> {
+
+    private var _wrappedValue: Component?
+
     public var wrappedValue: Component {
-        get {
-            let component: Component = MPInjector.resolve()
-            return component
+        mutating get {
+            if let _wrappedValue = _wrappedValue {
+                return _wrappedValue
+            } else {
+                let component: Component = MPInjector.resolve()
+                _wrappedValue = component
+                return component
+            }
+        }
+        set(newValue) {
+            _wrappedValue = newValue
         }
     }
 
